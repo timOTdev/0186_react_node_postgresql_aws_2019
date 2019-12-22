@@ -12,13 +12,27 @@ class App extends Component {
   }
 
   componentDidMount() {
+    // API call via local server
     axios.get('/hello')
       .then(res => this.setState({ hello: res.data }))
       .catch(error => console.error(error))
 
+    // API call via Axios
     axiosInstance.get('/posts')
-      .then(res => console.log(res.data))
+      .then(res => console.log("From axios:", res.data))
       .catch(error => console.error(error))
+
+    // API call via fetch
+    this.asyncFetch()
+
+  }
+
+  asyncFetch = async () => {
+    await fetch('https://jsonplaceholder.typicode.com/posts')
+      .then(res => res.json())
+      .then(json => console.log("From fetch:", json))
+      .catch(error => console.error(error))
+
   }
 
   render() {

@@ -24,7 +24,6 @@ class App extends Component {
 
     // API call via fetch
     this.asyncFetch()
-
   }
 
   asyncFetch = async () => {
@@ -32,7 +31,6 @@ class App extends Component {
       .then(res => res.json())
       .then(json => console.log("From fetch:", json))
       .catch(error => console.error(error))
-
   }
 
   render() {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import './App.css'
 import axios from 'axios'
+import Routes from './routes';
 
 const axiosInstance = axios.create({
   baseURL: "https://jsonplaceholder.typicode.com"
@@ -36,6 +36,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <Routes />
         {this.state.hello
           ? <div>{this.state.hello}</div>
           : ''}

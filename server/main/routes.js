@@ -116,4 +116,43 @@ router.get('/api/get/allpostcomments', (req, res, next) => {
   )
 })
 
+/*
+  USERS ROUTES SECTION
+*/
+router.post('api/post/userprofiletodb', (req, res, next) => {
+  const values = [req.body.profile.nickname, req.body.profile.email, req.body.profile.email_verified]
+  pool.query(
+    `INSERT INTO users(username, email, email_verified, date_created) VALUES($1, $2, $3, NOW()) ON CONFLICT DO NOTHING`,
+    values,
+    (q_err, q_res) => {
+      res.json(q_res.rows)
+      console.log(q_err)
+    }
+  )
+})
+
+router.get('api/get/userprofiletodb', (req, res, next) => {
+  const email = String(req.body.email)
+  pool.query(
+    `SELECT * FROM users WHERE email=$1`,
+    [email],
+    (q_err, q_res) => {
+      req.json(q_res.rows)
+      console.log(q_err)
+    }
+  )
+})
+
+router.get('api/get/userposts', (req, res, next) => {
+  const user_id = String(req.body.userid)
+  pool.query(
+    `SELECT * FROM posts WHERE user_id=$1`,
+    [user_id],
+    (q_err, q_res) => {
+      req.json(q_res.rows)
+      console.log(q_err)
+    }
+  )
+})
+
 module.exports = router

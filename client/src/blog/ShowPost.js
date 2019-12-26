@@ -39,7 +39,7 @@ class ShowPost extends Component {
 
   componentDidMount() {
     axios.get('/api/get/allpostcomments', { params: { post_id: this.props.location.state.post.post.pid } })
-      .then(res => this.props.set_comment(res.data))
+      .then(res => this.props.set_comments(res.data))
       .catch(err => console.error(err))
   }
 
@@ -68,8 +68,6 @@ class ShowPost extends Component {
       .then(setTimeout(() => history.replace('/posts'), 700))
       .catch(err => console.error(err))
   }
-
-  handleClose = () => { }
 
   handleDeleteComment = () => {
     const cid = this.state.cid
@@ -129,7 +127,7 @@ class ShowPost extends Component {
         <div>
           <Dialog
             open={this.state.open}
-            onClose={this.handleClose}
+            onClose={this.handleClickClose}
             aria-labelledby="alert-dialog-title"
             aria-describedby="alert-dialog-description"
           >
@@ -142,7 +140,7 @@ class ShowPost extends Component {
                 <Button onClick={() => { this.handleUpdateComment(); this.setState({ open: false }) }}>
                   Agree
                 </Button>
-                <Button onClick={() => this.handleClose()}>
+                <Button onClick={() => this.handleClickClose()}>
                   Cancel
                 </Button>
                 <Button onClick={() => this.handleDeleteComment()}>

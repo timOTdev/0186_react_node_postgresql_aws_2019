@@ -27,7 +27,7 @@ const RenderPost = post => (
 class Posts extends Component {
   componentDidMount() {
     axios.get('/api/get/allposts')
-      .then(res => this.props.set_props(res.data))
+      .then(res => this.props.set_posts(res.data))
       .catch(err => console.error(err))
   }
 

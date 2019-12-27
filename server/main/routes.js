@@ -137,7 +137,7 @@ router.get('api/get/userprofiletodb', (req, res, next) => {
     `SELECT * FROM users WHERE email=$1`,
     [email],
     (q_err, q_res) => {
-      req.json(q_res.rows)
+      res.json(q_res.rows)
       console.log(q_err)
     }
   )

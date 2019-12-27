@@ -13,12 +13,12 @@ class AuthCheck extends Component {
       .then(() => axios.get('/api/get/userprofilefromdb', { params: { email: profile.profile.email } })
         .then(res => this.props.set_db_profile(res.data)))
       .then(history.replace('/'))
+      .catch(err => console.error(err))
   }
 
   componentDidMount() {
     if (this.props.auth.isAuthenticated()) {
       this.props.login_success()
-      console.log("authcheck", this.props.auth.userProfile)
       this.props.add_profile(this.props.auth.userProfile)
       this.send_profile_to_db(this.props.auth.userProfile)
       history.replace('/')

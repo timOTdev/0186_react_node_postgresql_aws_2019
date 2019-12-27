@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import Routes from './routes';
+import './App.css'
 
 const axiosInstance = axios.create({
   baseURL: "https://jsonplaceholder.typicode.com"

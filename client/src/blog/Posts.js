@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import * as ACTIONS from '../sore/actions/actions'
+import * as ACTIONS from '../store/actions/actions'
 import axios from 'axios'
 
 import Paper from '@material-ui/core/Paper'
@@ -35,8 +35,8 @@ class Posts extends Component {
     return (
       <div>
         <br />
-        <Link to="/newpost">
-          <Button color="primary">AddButton</Button>
+        <Link to="/addpost">
+          <Button color="primary">Add Post</Button>
         </Link>
         <h1>Posts</h1>
         <Paper>
@@ -50,9 +50,7 @@ class Posts extends Component {
             </TableHead>
             <TableBody>
               {this.props.posts ? (
-                this.props.posts.map(post => {
-                  <RenderPost id={post.pid} post={post} />
-                })
+                this.props.posts.map(post => <RenderPost id={post.pid} post={post} />)
               ) : ''}
             </TableBody>
           </Table>

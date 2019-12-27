@@ -1,10 +1,8 @@
-import React from 'react'
+import React, { Component } from 'react'
 import axios from 'axios'
 import history from '../utils/history'
 import TextField from '@material-ui/core/TextField'
 import { connect } from 'react-redux'
-
-import React, { Component } from 'react'
 
 class AddPost extends Component {
   handleSubmit = (e) => {

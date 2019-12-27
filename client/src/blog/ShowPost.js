@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 
-import * as ACTIONS from '../sore/actions/actions'
+import * as ACTIONS from '../store/actions/actions'
 import axios from 'axios'
 import history from '../utils/history'
 
@@ -13,18 +13,18 @@ import DialogContentText from '@material-ui/core/DialogContentText'
 import DialogTitle from '@material-ui/core/DialogTitle'
 import Button from '@material-ui/core/Button'
 
-const RenderComment = (comment) => {
+const RenderComment = (comment) => (
   <div>
     <h3>{comment.comment.comment}</h3>
     <small>{comment.comment.date_created}</small>
     <p>By: {comment.comment.author}</p>
-    {comment.cur_user_id == comment.comment.user_id ? (
+    {comment.cur_user_id === comment.comment.user_id ? (
       <Button onClick={() => this.handleClick(comment.comment.id, comment.comment.comment)}>
         Edit
       </Button>
     ) : ''}
   </div>
-}
+)
 
 class ShowPost extends Component {
   constructor(props) {
@@ -104,14 +104,14 @@ class ShowPost extends Component {
         <div>
           <h2>Comments:</h2>
           {this.props.comments ? (
-            this.props.comments.map(comment => {
+            this.props.comments.map(comment => (
               <RenderComment
                 key={comment.cid}
                 comment={comment}
                 cur_user_id={this.props.db_profile[0].uid}
               />
-            })
-          ) : ' '}
+            ))
+          ) : ''}
         </div>
         <div>
           <form onSubmit={this.handleSubmit}>

@@ -10,13 +10,13 @@ class AddPost extends Component {
     const uid = this.props.db_profile[0].uid
     const username = this.props.db_profile[0].username
     const data = {
-      title: e.target.value,
+      title: e.target.title.value,
       body: e.target.body.value,
       username,
       uid,
     }
 
-    axios.post('api/post/posttodb', data)
+    axios.post('/api/post/posttodb', data)
       .then(res => console.log(res))
       .then(setTimeout(() => history.replace('/', 700)))
       .catch(err => console.error(err))

@@ -17,7 +17,7 @@ router.get('/api/get/allposts', (req, res, next) => {
     })
 })
 
-router.post('/api/posts/posttodb', (req, res, next) => {
+router.post('/api/post/posttodb', (req, res, next) => {
   const values = [req.body.title, req.body.body, req.body.uid, req.body.username]
   pool.query(`INSERT INTO posts(title, body, user_id, author, date_created) VALUES($1, $2, $3, $4, NOW() )`,
     values,
@@ -69,7 +69,7 @@ router.delete('/api/delete/post', (req, res, next) => {
   COMMENTS ROUTES SECTION
 */
 router.post('/api/post/commenttodb', (req, res, next) => {
-  const values = [res.body.comment, req.body.user_id, req.body.username, req.body.post_id]
+  const values = [req.body.comment, req.body.user_id, req.body.username, req.body.post_id]
   pool.query(
     `INSERT INTO comments(comment, user_id, author, post_id, date_created) VALUES($1, $2, $3, $4, NOW())`,
     values,

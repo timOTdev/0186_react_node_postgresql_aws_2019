@@ -56,10 +56,10 @@ class ShowPost extends Component {
   }
 
   handleUpdateComment = () => {
-    const comment = this.state.comments
+    const comment = this.state.comment
     const cid = this.state.cid
     const user_id = this.props.db_profile[0].uid
-    const post_id = this.props.location.state.post.post.post_id
+    const post_id = this.props.location.state.post.post.pid
     const username = this.props.db_profile[0].username
     const data = { comment, cid, post_id, user_id, username }
 
@@ -81,12 +81,12 @@ class ShowPost extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     const user_id = this.props.db_profile[0].uid
-    const post_id = this.props.location.state.post.post.post_id
+    const post_id = this.props.location.state.post.post.pid
     const username = this.props.db_profile[0].username
     const data = { comment: e.target.comment.value, post_id, user_id, username }
 
+    console.log('handlesubmit', data)
     axios.post('/api/post/commenttodb', data)
-      .then(res => console.log(res))
       .then(setTimeout(() => history.replace('/posts'), 700))
       .catch(err => console.error(err))
   }
@@ -119,6 +119,8 @@ class ShowPost extends Component {
               id="comment"
               label="Comment"
               margin="normal"
+              value={this.state.comment}
+              onChange={this.handleCommentChange}
             />
             <br />
             <Button type="submit">Submit</Button>

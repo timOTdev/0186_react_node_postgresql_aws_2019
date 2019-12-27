@@ -9,7 +9,7 @@ class AuthCheck extends Component {
   // Then makes request immediately to get from database by checking user's email
   // Then set the user profile from the database to the redux store
   send_profile_to_db = (profile) => {
-    axios.post('api/post/userprofiletodb', profile)
+    axios.post('/api/post/userprofiletodb', profile)
       .then(() => axios.get('/api/get/userprofilefromdb', { params: { email: profile.profile.email } })
         .then(res => this.props.set_db_profile(res.data)))
       .then(history.replace('/'))

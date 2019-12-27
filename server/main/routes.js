@@ -13,7 +13,7 @@ router.get('/api/get/allposts', (req, res, next) => {
   pool.query("SELECT * FROM posts ORDER BY date_created DESC",
     (q_err, q_res) => {
       res.json(q_res.rows)
-      console.log(q_err)
+      if (q_err) console.log(q_err)
     })
 })
 
@@ -24,7 +24,7 @@ router.post('/api/posts/posttodb', (req, res, next) => {
     (q_err, q_res) => {
       if (q_err) return next(q_err)
       res.json(q_res.rows)
-      console.log(q_err)
+      if (q_err) console.log(q_err)
     }
   )
 })
@@ -36,7 +36,7 @@ router.put('api/put/post', (req, res, next) => {
     values,
     (q_err, q_res) => {
       res.json(q_res.rows)
-      console.log(q_err)
+      if (q_err) console.log(q_err)
     }
   )
 })
@@ -48,7 +48,7 @@ router.delete('/api/delete/postcomments', (req, res, next) => {
     [post_id],
     (q_err, q_res) => {
       res.json(q_res.rows)
-      console.log(q_err)
+      if (q_err) console.log(q_err)
     }
   )
 })
@@ -60,7 +60,7 @@ router.delete('/api/delete/post', (req, res, next) => {
     [post_id],
     (q_err, q_res) => {
       res.json(q_res.rows)
-      console.log(q_err)
+      if (q_err) console.log(q_err)
     }
   )
 })
@@ -75,7 +75,7 @@ router.post('/api/post/commenttodb', (req, res, next) => {
     values,
     (q_err, q_res) => {
       res.json(q_res.rows)
-      console.log(q_err)
+      if (q_err) console.log(q_err)
     }
   )
 })
@@ -87,19 +87,19 @@ router.put('/api/put/commenttodb', (req, res, next) => {
     values,
     (q_err, q_res) => {
       res.json(q_res.rows)
-      console.log(q_err)
+      if (q_err) console.log(q_err)
     }
   )
 })
 
-router.delete('api/delete/comment', (req, res, next) => {
+router.delete('/api/delete/comment', (req, res, next) => {
   const cid = req.body.cid
   pool.query(
     `DELETE FROM comments WHERE cid=$1`,
     [cid],
     (q_err, q_res) => {
       res.json(q_res.rows)
-      console.log(q_err)
+      if (q_err) console.log(q_err)
     }
   )
 })
@@ -111,7 +111,7 @@ router.get('/api/get/allpostcomments', (req, res, next) => {
     [post_id],
     (q_err, q_res) => {
       res.json(q_res.rows)
-      console.log(q_err)
+      if (q_err) console.log(q_err)
     }
   )
 })
@@ -119,38 +119,38 @@ router.get('/api/get/allpostcomments', (req, res, next) => {
 /*
   USERS ROUTES SECTION
 */
-router.post('api/post/userprofiletodb', (req, res, next) => {
+router.post('/api/post/userprofiletodb', (req, res, next) => {
   const values = [req.body.profile.nickname, req.body.profile.email, req.body.profile.email_verified]
   pool.query(
     `INSERT INTO users(username, email, email_verified, date_created) VALUES($1, $2, $3, NOW()) ON CONFLICT DO NOTHING`,
     values,
     (q_err, q_res) => {
       res.json(q_res.rows)
-      console.log(q_err)
+      if (q_err) console.log(q_err)
     }
   )
 })
 
-router.get('api/get/userprofiletodb', (req, res, next) => {
-  const email = String(req.body.email)
+router.get('/api/get/userprofilefromdb', (req, res, next) => {
+  const email = String(req.query.email)
   pool.query(
-    `SELECT * FROM users WHERE email=$1`,
+    'SELECT * FROM users WHERE email=$1',
     [email],
     (q_err, q_res) => {
       res.json(q_res.rows)
-      console.log(q_err)
+      if (q_err) console.log(q_err)
     }
   )
 })
 
-router.get('api/get/userposts', (req, res, next) => {
+router.get('/api/get/userposts', (req, res, next) => {
   const user_id = String(req.body.userid)
   pool.query(
     `SELECT * FROM posts WHERE user_id=$1`,
     [user_id],
     (q_err, q_res) => {
-      req.json(q_res.rows)
-      console.log(q_err)
+      res.json(q_res.rows)
+      if (q_err) console.log(q_err)
     }
   )
 })

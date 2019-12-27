@@ -40,8 +40,7 @@ class Profile extends Component {
       <br />
       <h5> {props.profile.profile.name} </h5>
       <br />
-      <h6> Email Verified: </h6>
-      {props.profile.profile.email_verified ? <p>Yes</p> : <p>No</p>}
+      <h6> Email Verified: {props.profile.profile.email_verified ? <p>Yes</p> : <p>No</p>}</h6>
       <br />
     </div>
   )
@@ -100,7 +99,6 @@ class Profile extends Component {
           <this.RenderProfile profile={this.props.profile} />
         </div>
         <div>
-          {console.log(this.props.user_posts)}
           {this.props.user_posts ? (
             this.props.user_posts.map(post => <this.RenderPosts post={post} key={post.pid} />)
           ) : ''}

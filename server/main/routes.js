@@ -144,7 +144,7 @@ router.get('/api/get/userprofilefromdb', (req, res, next) => {
 })
 
 router.get('/api/get/userposts', (req, res, next) => {
-  const user_id = String(req.body.userid)
+  const user_id = String(req.query.user_id)
   pool.query(
     `SELECT * FROM posts WHERE user_id=$1`,
     [user_id],

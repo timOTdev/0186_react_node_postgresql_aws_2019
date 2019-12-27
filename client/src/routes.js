@@ -14,6 +14,11 @@ import UnauthRedirect from './functional/unauthredirect';
 import Home from './functional/home';
 import RenderListItem from './functional/renderlistitem';
 
+import AddPost from './blog/AddPost'
+import EditPost from './blog/EditPost'
+import Posts from './blog/Posts'
+import ShowPost from './blog/ShowPost'
+
 import * as ACTIONS from './store/actions/actions';
 
 import Auth from './utils/auth';
@@ -64,6 +69,11 @@ class Routes extends Component {
               <Route path='/authcheck' render={() => <AuthCheck auth={auth} />} />
               <Route path='/redirect' component={UnauthRedirect} />
               <Route path='/renderlist' component={RenderList} />
+
+              <Route path='/addpost' component={AddPost} />
+              <Route path='/editpost/:pid' component={EditPost} />
+              <Route path='/posts' component={Posts} />
+              <Route path='/post/:pid' component={ShowPost} />
 
               <Route path='/callback' render={(props) => { handleAuthentication(props); return <Callback /> }} />
               <Route path="/component1" render={(props) => <Component1 {...props} />} />

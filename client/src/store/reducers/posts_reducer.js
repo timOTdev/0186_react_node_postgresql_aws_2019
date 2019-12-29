@@ -8,7 +8,7 @@ const initialState = {
 
 const PostsReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ACTION_TYPES.FETCH_DB_POSTS:
+    case ACTION_TYPES.SET_DB_POSTS:
       return {
         ...state,
         posts: action.payload

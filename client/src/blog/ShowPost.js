@@ -29,7 +29,8 @@ class ShowPost extends Component {
 
   componentDidMount() {
     axios.get('/api/get/allpostcomments', { params: { post_id: this.props.location.state.post.post.pid } })
-      .then(res => this.props.set_comments(res.data))
+      .then(res => this.props.fetch_post_comments(res.data))
+      .then(() => this.addCommentsToState(this.props.comments))
       .catch(err => console.error(err))
     this.handleTransition()
   }
@@ -41,7 +42,7 @@ class ShowPost extends Component {
       <small>{comment.comment.date_created === 'Just Now' ? <span>Edited</span> : <span>Just Now</span>}</small>
       <p>By: {comment.comment.author}</p>
       {comment.cur_user_id === comment.comment.user_id ? (
-        <Button onClick={() => this.handleClick(comment.comment.id, comment.comment.comment)}>
+        <Button onClick={() => this.handleClickOpen(comment.comment.id, comment.comment.comment)}>
           Edit
         </Button>
       ) : ''}
@@ -169,7 +170,7 @@ class ShowPost extends Component {
         </div>
         <div style={{ opacity: this.state.opacity, transition: 'ease0out 2s' }}>
           <h2>Comments:</h2>
-          {this.state.comments_motion ? (
+          {this.state.comments ? (
             this.state.comments_motion.map(comment => (
               <this.RenderComment
                 key={comment.cid}
@@ -232,7 +233,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    set_comments: (comments) => dispatch(ACTIONS.fetch_post_comments(comments))
+    fetch_post_comments: (comments) => dispatch(ACTIONS.fetch_post_comments(comments))
   }
 }
 

@@ -21,7 +21,7 @@ class Posts extends Component {
       activePage: 1,
       posts_per_page: 5,
       posts_slice: [],
-      posts_motion: null,
+      posts_motion: [],
     }
   }
 
@@ -38,7 +38,14 @@ class Posts extends Component {
   }
 
   addPostsToState = (posts) => {
-    this.setState({ posts, num_posts: posts.length, page_range: posts.length })
+    this.setState({ posts })
+    this.setState({
+      num_posts: this.state.posts.length,
+      page_range: this.state.num_posts / 5
+    })
+
+    this.slice_posts()
+    this.animate_posts()
   }
 
   slice_posts = () => {
@@ -49,7 +56,7 @@ class Posts extends Component {
   }
 
   animate_posts = () => {
-    // this.setState({ posts_motion: [] })
+    this.setState({ posts_motion: [] })
     let i = 1
     return this.state.posts_slice.map(post => {
       setTimeout(() => this.setState({ posts_motion: [...this.state.posts_motion, post] }), 400 * i);
@@ -65,7 +72,7 @@ class Posts extends Component {
   }
 
   RenderPost = post => (
-    <div>
+    <div style={{ opacity: this.state.opacity, transition: 'opacity 2s ease' }}>
       <Card style={{ width: '500px', height: '200px', marginBottom: '10px', paddingBottom: '80px' }}>
         <CardHeader
           title={
@@ -101,8 +108,8 @@ class Posts extends Component {
         <div style={{ opacity: this.state.opacity, transition: 'opacity 2s ease' }}>
           <h1>Posts</h1>
           <div>
-            {this.state.posts ? (
-              this.state.posts.map(post => <this.RenderPost id={post.pid} key={post.pid} post={post} />)
+            {this.state.posts_motion ? (
+              this.state.posts_motion.map(post => <this.RenderPost id={post.pid} key={post.pid} post={post} />)
             ) : ''}
           </div>
           <Pagination

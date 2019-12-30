@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import * as ACTIONS from '../store/actions/actions'
 import axios from 'axios'
+import Pagination from 'react-js-pagination'
 
 import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Card'
@@ -14,7 +15,13 @@ class Posts extends Component {
     super(props)
     this.state = {
       posts: [],
-      opacity: 0
+      opacity: 0,
+      num_posts: 0,
+      page_range: 0,
+      activePage: 1,
+      posts_per_page: 5,
+      posts_slice: [],
+      posts_motion: null,
     }
   }
 
@@ -31,7 +38,30 @@ class Posts extends Component {
   }
 
   addPostsToState = (posts) => {
-    this.setState({ posts })
+    this.setState({ posts, num_posts: posts.length, page_range: posts.length })
+  }
+
+  slice_posts = () => {
+    const indexOfLastPost = this.state.activePage * this.state.posts_per_page
+    const indexOfFirstPost = indexOfLastPost - this.state.posts_per_page
+
+    this.setState({ posts_slice: this.state.posts.slice(indexOfFirstPost, indexOfLastPost) })
+  }
+
+  animate_posts = () => {
+    // this.setState({ posts_motion: [] })
+    let i = 1
+    return this.state.posts_slice.map(post => {
+      setTimeout(() => this.setState({ posts_motion: [...this.state.posts_motion, post] }), 400 * i);
+      return i++;
+    })
+  }
+
+  handlePageChange = (pageNumber) => {
+    this.setState({ activePage: pageNumber })
+
+    setTimeout(() => this.slice_posts(), 50)
+    setTimeout(() => this.animate_posts(), 100)
   }
 
   RenderPost = post => (
@@ -72,9 +102,16 @@ class Posts extends Component {
           <h1>Posts</h1>
           <div>
             {this.state.posts ? (
-              this.state.posts.map(post => <this.RenderPost id={post.pid} post={post} />)
+              this.state.posts.map(post => <this.RenderPost id={post.pid} key={post.pid} post={post} />)
             ) : ''}
           </div>
+          <Pagination
+            activePage={this.state.activePage}
+            itemsCountPerPage={5}
+            totalItemsCount={this.state.num_posts}
+            pageRangeDisplayed={this.state.page_range}
+            onChange={this.handlePageChange}
+          />
         </div>
       </div>
     )

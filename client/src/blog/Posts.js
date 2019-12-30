@@ -76,7 +76,7 @@ class Posts extends Component {
       <Card style={{ width: '500px', height: '200px', marginBottom: '10px', paddingBottom: '80px' }}>
         <CardHeader
           title={
-            <Link to={{ pathname: '/post' + post.post.id, state: { post } }}>
+            <Link to={{ pathname: '/post/' + post.post.pid, state: { post } }}>
               {post.post.title}
             </Link>
           }

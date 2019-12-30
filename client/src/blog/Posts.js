@@ -72,7 +72,7 @@ class Posts extends Component {
   }
 
   RenderPost = post => (
-    <div style={{ opacity: this.state.opacity, transition: 'opacity 2s ease' }}>
+    <div className="CardStyles">
       <Card style={{ width: '500px', height: '200px', marginBottom: '10px', paddingBottom: '80px' }}>
         <CardHeader
           title={

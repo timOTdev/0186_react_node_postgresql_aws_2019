@@ -38,7 +38,7 @@ class Posts extends Component {
   }
 
   addPostsToState = (posts) => {
-    this.setState({ posts })
+    this.setState({ posts: [...posts] })
     this.setState({
       num_posts: this.state.posts.length,
       page_range: this.state.num_posts / 5

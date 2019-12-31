@@ -155,4 +155,27 @@ router.get('/api/get/userposts', (req, res, next) => {
   )
 })
 
+/*
+  LIKES ROUTES SECTION
+*/
+router.put('/api/put/likes', (req, res, next) => {
+  const uid = [req.body.uid]
+  const post_id = String(req.body.post_id)
+  const values = [uid, post_id]
+
+  // We are concatenating the like_user_id to the INT array and incrementing the like
+  // WHERE NOT like_user_id contains $1 and pid equals post_id
+  pool.query(
+    `UPDATE posts
+      SET like_user_id = like_user_id || $1, likes = likes + 1
+      WHERE NOT (like_user_id @> $1)
+      AND pid = ($2)`,
+    values,
+    (q_err, q_res) => {
+      res.json(q_res.rows)
+      if (q_err) console.log(q_err)
+    }
+  )
+})
+
 module.exports = router

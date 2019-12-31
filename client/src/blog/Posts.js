@@ -85,6 +85,12 @@ class Posts extends Component {
               <div className="FlexRow">
                 {post.post.date_created}
               </div>
+              <div className="FlexRow">
+                <i className="material-icons">thumb_up</i>
+                <div className="notification-num-posts">
+                  {post.post.likes}
+                </div>
+              </div>
             </div>
           }
         />

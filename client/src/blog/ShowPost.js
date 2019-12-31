@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
+import history from '../utils/history'
 import * as ACTIONS from '../store/actions/actions'
 import axios from 'axios'
 
@@ -24,6 +24,9 @@ class ShowPost extends Component {
       comments: [],
       comments_motion: [],
       delete_comment_id: 0,
+      likes: this.props.location.state.post.post.likes,
+      like_user_id: this.props.location.state.post.post.like_user_id,
+      like_post: true // Check if user can like a certain post
     }
   }
 
@@ -158,6 +161,18 @@ class ShowPost extends Component {
     this.handleCommentSubmit(submitted_comment)
   }
 
+  handleLikes = () => {
+    const user_id = this.props.db_profile[0].uid
+    const post_id = this.props.location.state.post.post.pid
+    const data = { uid: user_id, post_id: post_id }
+
+    axios.put('/api/put/likes', data)
+      .then(!this.state.like_user_id.includes(user_id) && this.state.like_posts
+        ? this.setState({ likes: this.state.likes + 1 })
+        : '')
+      .then(this.setState({ like_posts: false }))
+      .catch(err => console.error(err))
+  }
 
   render() {
     return (
@@ -167,6 +182,10 @@ class ShowPost extends Component {
           <h4>{this.props.location.state.post.post.title}</h4>
           <p>{this.props.location.state.post.post.body}</p>
           <p>{this.props.location.state.post.post.author}</p>
+          <a style={{ cursor: 'pointer' }} href="#" onClick={this.props.is_authenticated ? () => this.handleLikes() : () => history.replace('/')}>
+            <i className='material-icons'>thumb_up</i>
+            <small className="notification-num-showpost">{this.state.likes}</small>
+          </a>
         </div>
         <div style={{ opacity: this.state.opacity, transition: 'ease0out 2s' }}>
           <h2>Comments:</h2>
@@ -227,7 +246,8 @@ class ShowPost extends Component {
 function mapStateToProps(state) {
   return {
     comments: state.posts_reducer.comments,
-    db_profile: state.auth_reducer.db_profile
+    db_profile: state.auth_reducer.db_profile,
+    is_authenticated: state.auth_reducer.is_authenticated
   }
 }
 

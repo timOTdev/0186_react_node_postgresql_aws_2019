@@ -36,6 +36,8 @@ class ShowPost extends Component {
       .then(() => this.addCommentsToState(this.props.comments))
       .catch(err => console.error(err))
     this.handleTransition()
+
+    this.setState({ likes: this.props.location.state.post.post.likes, like_user_id: this.props.location.state.post.post.like_user_id })
   }
 
   // RENDER FUNCTIONS
@@ -167,27 +169,29 @@ class ShowPost extends Component {
     const data = { uid: user_id, post_id: post_id }
 
     axios.put('/api/put/likes', data)
-      .then(!this.state.like_user_id.includes(user_id) && this.state.like_posts
+      .then((!this.state.like_user_id.includes(user_id) && this.state.like_post)
         ? this.setState({ likes: this.state.likes + 1 })
         : '')
-      .then(this.setState({ like_posts: false }))
+      .then(this.setState({ like_post: false }))
       .catch(err => console.error(err))
   }
 
   render() {
+    console.log("state", this.state)
+    console.log("props", this.props)
     return (
       <div>
         <div>
           <h2>Post</h2>
-          <h4>{this.props.location.state.post.post.title}</h4>
+          {/* <h4>{this.props.location.state.post.post.title}</h4>
           <p>{this.props.location.state.post.post.body}</p>
-          <p>{this.props.location.state.post.post.author}</p>
+          <p>{this.props.location.state.post.post.author}</p> */}
           <a style={{ cursor: 'pointer' }} href="#" onClick={this.props.is_authenticated ? () => this.handleLikes() : () => history.replace('/')}>
             <i className='material-icons'>thumb_up</i>
             <small className="notification-num-showpost">{this.state.likes}</small>
           </a>
         </div>
-        <div style={{ opacity: this.state.opacity, transition: 'ease0out 2s' }}>
+        <div style={{ opacity: this.state.opacity, transition: 'ease-out 2s' }}>
           <h2>Comments:</h2>
           {this.state.comments ? (
             this.state.comments_motion.map(comment => (

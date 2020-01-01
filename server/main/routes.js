@@ -165,8 +165,7 @@ router.put('/api/put/likes', (req, res, next) => {
 
   // We are concatenating the like_user_id to the INT array and incrementing the like
   // WHERE NOT like_user_id contains $1 and pid equals post_id
-  pool.query(
-    `UPDATE posts
+  pool.query(`UPDATE posts
       SET like_user_id = like_user_id || $1, likes = likes + 1
       WHERE NOT (like_user_id @> $1)
       AND pid = ($2)`,

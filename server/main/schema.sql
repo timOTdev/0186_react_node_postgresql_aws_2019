@@ -16,17 +16,16 @@ CREATE TABLE posts
   user_id INT REFERENCES users(uid),
   author VARCHAR REFERENCES users(username),
   date_created TIMESTAMP,
-  like_user_id INT
-  [] DEFAULT ARRAY[]::INT[], -- Set an empty array of integers with the default array of typecasting of array of integers
+  like_user_id INT[] DEFAULT ARRAY[]::INT[], -- Set an empty array of integers with the default array of typecasting of array of integers
   likes INT DEFAULT 0
 );
 
-  CREATE TABLE comments
-  (
-    cid SERIAL PRIMARY KEY,
-    comment VARCHAR(255),
-    author VARCHAR REFERENCES users(username),
-    user_id INT REFERENCES users(uid),
-    post_id INT REFERENCES posts(pid),
-    date_created TIMESTAMP
-  );
+CREATE TABLE comments
+(
+  cid SERIAL PRIMARY KEY,
+  comment VARCHAR(255),
+  author VARCHAR REFERENCES users(username),
+  user_id INT REFERENCES users(uid),
+  post_id INT REFERENCES posts(pid),
+  date_created TIMESTAMP
+);

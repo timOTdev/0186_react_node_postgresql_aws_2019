@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import history from '../utils/history'
 import * as ACTIONS from '../store/actions/actions'
 import axios from 'axios'
-
+import { Link } from 'react-router-dom'
 import TextField from '@material-ui/core/TextField'
 import Dialog from '@material-ui/core/Dialog'
 import DialogActions from '@material-ui/core/DialogActions'
@@ -186,7 +186,7 @@ class ShowPost extends Component {
           {/* <h4>{this.props.location.state.post.post.title}</h4>
           <p>{this.props.location.state.post.post.body}</p>
           <p>{this.props.location.state.post.post.author}</p> */}
-          <a style={{ cursor: 'pointer' }} href="#" onClick={this.props.is_authenticated ? () => this.handleLikes() : () => history.replace('/')}>
+          <a style={{ cursor: 'pointer' }} href="#" onClick={this.props.is_authenticated ? () => this.handleLikes() : () => history.replace('/signup')}>
             <i className='material-icons'>thumb_up</i>
             <small className="notification-num-showpost">{this.state.likes}</small>
           </a>
@@ -213,7 +213,18 @@ class ShowPost extends Component {
               onChange={this.handleChange}
             />
             <br />
-            <Button type="submit">Submit</Button>
+            {this.props.is_authenticated
+              ? (
+                <Button type="submit">Submit</Button>
+              ) : (
+                <Link to="/signup">
+                  <Button color="primary" variant="contained">
+                    Signup to comment
+                </Button>
+                </Link>
+              )
+
+            }
           </form>
         </div>
         <div>

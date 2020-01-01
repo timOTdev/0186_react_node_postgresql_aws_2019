@@ -13,6 +13,7 @@ import PrivateComponent from './functional/privatecomponent';
 import UnauthRedirect from './functional/unauthredirect';
 import Home from './functional/home';
 import RenderListItem from './functional/renderlistitem';
+import Signup from './functional/signup'
 
 import AddPost from './blog/AddPost'
 import EditPost from './blog/EditPost'
@@ -38,7 +39,7 @@ const handleAuthentication = (props) => {
 const PrivateRoute = ({ component: Component, auth }) => (
   <Route render={props => auth.isAuthenticated() === true
     ? <Component auth={auth} {...props} />
-    : <Redirect to={{ pathname: '/redirect' }} />
+    : <Redirect to={{ pathname: '/signup' }} />
   }
   />
 )
@@ -69,6 +70,7 @@ class Routes extends Component {
               <Route path='/authcheck' render={() => <AuthCheck auth={auth} />} />
               <Route path='/redirect' component={UnauthRedirect} />
               <Route path='/renderlist' component={RenderList} />
+              <Route path='/signup' render={() => <Signup auth={auth} />} />
 
               <Route path='/addpost' component={AddPost} />
               <Route path='/editpost/:pid' component={EditPost} />

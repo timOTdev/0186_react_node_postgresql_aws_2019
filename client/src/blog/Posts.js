@@ -107,9 +107,18 @@ class Posts extends Component {
       <div>
         <div style={{ opacity: this.state.opacity, transition: 'opacity 2s ease' }}>
           <br />
-          <Link to="/addpost">
-            <Button color="primary">Add Post</Button>
-          </Link>
+          {this.props.is_authenticated
+            ? (
+              <Link to="/addpost">
+                <Button variant="contained" color="primary">Add Post</Button>
+              </Link>
+            ) : (
+              <Link to="/signup">
+                <Button variant="contained" color="primary">Signup to add post</Button>
+              </Link>
+            )
+
+          }
         </div>
         <div style={{ opacity: this.state.opacity, transition: 'opacity 2s ease' }}>
           <h1>Posts</h1>
@@ -133,7 +142,8 @@ class Posts extends Component {
 
 function mapStateToProps(state) {
   return {
-    posts: state.posts_reducer.posts
+    posts: state.posts_reducer.posts,
+    is_authenticated: state.auth_reducer.is_authenticated
   }
 }
 

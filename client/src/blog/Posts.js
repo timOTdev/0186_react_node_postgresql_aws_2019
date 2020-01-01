@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import * as ACTIONS from '../store/actions/actions'
 import axios from 'axios'
 import Pagination from 'react-js-pagination'
-
+import moment from 'moment'
 import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
@@ -83,7 +83,7 @@ class Posts extends Component {
           subheader={
             <div className="FlexColumn">
               <div className="FlexRow">
-                {post.post.date_created}
+                {moment(post.post.date_created).format('MMMM Do, YYYY | h:mm a')}
               </div>
               <div className="FlexRow">
                 <i className="material-icons">thumb_up</i>

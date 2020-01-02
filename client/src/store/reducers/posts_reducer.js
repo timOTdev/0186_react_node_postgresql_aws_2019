@@ -4,6 +4,7 @@ const initialState = {
   posts: [],
   comments: [],
   user_posts: [],
+  search_posts: []
 }
 
 const PostsReducer = (state = initialState, action) => {
@@ -37,6 +38,16 @@ const PostsReducer = (state = initialState, action) => {
       return {
         ...state,
         user_posts: []
+      }
+    case ACTION_TYPES.SEARCH_POSTS_SUCCESS:
+      return {
+        ...state,
+        search_posts: []
+      }
+    case ACTION_TYPES.SEARCH_POSTS_FAILURE:
+      return {
+        ...state,
+        search_posts: []
       }
     default:
       return state

@@ -42,7 +42,7 @@ const PostsReducer = (state = initialState, action) => {
     case ACTION_TYPES.SEARCH_POSTS_SUCCESS:
       return {
         ...state,
-        search_posts: []
+        search_posts: action.payload
       }
     case ACTION_TYPES.SEARCH_POSTS_FAILURE:
       return {

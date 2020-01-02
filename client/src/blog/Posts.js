@@ -77,7 +77,8 @@ class Posts extends Component {
 
   // SEARCH FEATURE
   addSearchPostsToState = (posts) => {
-    this.setState({ posts_search: [...posts], posts: [...posts] })
+    this.setState({ posts_search: [] })
+    this.setState({ posts_search: [...posts] })
 
     this.animateSearchPosts()
   }
@@ -94,8 +95,8 @@ class Posts extends Component {
   handleSearch = (e) => {
     const search_query = e.target.value
 
-    axios.get('/api/get/searchpost', { params: { search_query } })
-      .then(res => this.props.posts_success(res.data))
+    axios.get('/api/get/searchpost', { params: { search_query: search_query } })
+      .then(res => this.props.fetch_search_posts(res.data))
       .then(() => this.addSearchPostsToState(this.props.search_posts))
       .catch(err => console.error(err))
   }

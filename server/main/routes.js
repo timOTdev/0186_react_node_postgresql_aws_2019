@@ -18,13 +18,31 @@ router.get('/api/get/allposts', (req, res, next) => {
 })
 
 router.post('/api/post/posttodb', (req, res, next) => {
-  const values = [req.body.title, req.body.body, req.body.uid, req.body.username]
-  pool.query(`INSERT INTO posts(title, body, user_id, author, date_created) VALUES($1, $2, $3, $4, NOW() )`,
+  const body_vector = String(req.body.body)
+  const title_vector = String(req.body.title)
+  const username_vector = String(req.body.username)
+  const search_vector = [title_vector, body_vector, username_vector]
+  const values = [req.body.title, req.body.body, search_vector, req.body.uid, req.body.username]
+
+  pool.query(`INSERT INTO posts(title, body, search_vector, user_id, author, date_created) VALUES($1, $2, to_tsvector($3), $4, $5, NOW() )`,
     values,
     (q_err, q_res) => {
       if (q_err) return next(q_err)
       res.json(q_res.rows)
       if (q_err) console.log(q_err)
+    }
+  )
+})
+
+router.get('/api/get/searchpost', (req, res, next) => {
+  const search_query = String(req.query.search_query)
+
+  pool.query(`SELECT * FROM posts
+    WHERE search_vector @@ to_tsquery($1)`,
+    [search_query],
+    (q_err, q_res) => {
+      if (q_err) console.log(q_err)
+      res.json(q_res.rows)
     }
   )
 })

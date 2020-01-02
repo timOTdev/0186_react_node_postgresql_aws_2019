@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardHeader from '@material-ui/core/CardHeader'
+import TextField from '@material-ui/core/TextField'
 
 class Posts extends Component {
   constructor(props) {
@@ -22,6 +23,8 @@ class Posts extends Component {
       posts_per_page: 5,
       posts_slice: [],
       posts_motion: [],
+      posts_search: [],
+      posts_search_motion: [],
     }
   }
 
@@ -37,6 +40,7 @@ class Posts extends Component {
     setTimeout(() => this.setState({ opacity: 1 }), 400)
   }
 
+  // POSTS FEATURE
   addPostsToState = (posts) => {
     this.setState({ posts: [...posts] })
     this.setState({
@@ -69,6 +73,31 @@ class Posts extends Component {
 
     setTimeout(() => this.slice_posts(), 50)
     setTimeout(() => this.animate_posts(), 100)
+  }
+
+  // SEARCH FEATURE
+  addSearchPostsToState = (posts) => {
+    this.setState({ posts_search: [...posts], posts: [...posts] })
+
+    this.animateSearchPosts()
+  }
+
+  animateSearchPosts = () => {
+    this.setState({ posts_search_motion: [] })
+    let i = 1
+    return this.state.posts_search.map(post => {
+      setTimeout(() => this.setState({ posts_search_motion: [...this.state.posts_search_motion, post] }), 400 * i);
+      return i++;
+    })
+  }
+
+  handleSearch = (e) => {
+    const search_query = e.target.value
+
+    axios.get('/api/get/searchpost', { params: { search_query } })
+      .then(res => this.props.posts_success(res.data))
+      .then(() => this.addSearchPostsToState(this.props.search_posts))
+      .catch(err => console.error(err))
   }
 
   RenderPost = post => (
@@ -117,7 +146,20 @@ class Posts extends Component {
                 <Button variant="contained" color="primary">Signup to add post</Button>
               </Link>
             )
-
+          }
+        </div>
+        <div>
+          <TextField
+            id="search"
+            label="search"
+            margin="normal"
+            onChange={this.handleSearch}
+          />
+        </div>
+        <div>
+          {this.state.posts_search
+            ? this.state.posts_search_motion.map(post => <this.RenderPost key={post.pid} post={post} />)
+            : ''
           }
         </div>
         <div style={{ opacity: this.state.opacity, transition: 'opacity 2s ease' }}>
@@ -143,13 +185,16 @@ class Posts extends Component {
 function mapStateToProps(state) {
   return {
     posts: state.posts_reducer.posts,
-    is_authenticated: state.auth_reducer.is_authenticated
+    is_authenticated: state.auth_reducer.is_authenticated,
+    search_posts: state.posts_reducer.search_posts,
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    set_db_posts: (posts) => dispatch(ACTIONS.set_db_posts(posts))
+    set_db_posts: (posts) => dispatch(ACTIONS.set_db_posts(posts)),
+    fetch_search_posts: (posts) => dispatch(ACTIONS.fetch_search_posts(posts)),
+    remove_search_posts: () => dispatch(ACTIONS.remove_search_posts())
   }
 }
 

@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import * as ACTIONS from '../store/actions/actions'
 import axios from 'axios'
 import moment from 'moment'
+
+import * as ACTIONS from '../store/actions/actions'
+
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardHeader from '@material-ui/core/CardHeader'
+import Button from '@material-ui/core/Button'
 
 class ShowUser extends Component {
   componentDidMount() {
@@ -54,10 +57,17 @@ class ShowUser extends Component {
     </div>
   )
 
-  RenderProfile = () => (
+  RenderProfile = (props) => (
     <div>
       <div className="FlexRow">
         <h1>{this.props.OtherUserDBProfile.username}</h1>
+      </div>
+      <div>
+        <Link to={{ pathname: '/sendmessage', state: { props } }}>
+          <Button variant="contained" color="primary" type="submit">
+            Send Message
+          </Button>
+        </Link>
       </div>
     </div>
   )

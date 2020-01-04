@@ -73,7 +73,7 @@ class ReplyMessage extends Component {
 
 function mapStateToProps(state) {
   return {
-    db_profile: state.user_reducer.db_profile,
+    db_profile: state.auth_reducer.db_profile,
   }
 }
 

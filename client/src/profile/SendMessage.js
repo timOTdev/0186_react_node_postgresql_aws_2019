@@ -12,7 +12,7 @@ class SendMessage extends Component {
     e.preventDefault()
     const message_sender = this.props.db_profile[0].username
     const message_recipient = this.props.location.state.props.profile.username
-    const message_title = e.target.value
+    const message_title = e.target.title.value
     const message_body = e.target.body.value
 
     const data = {
@@ -22,10 +22,11 @@ class SendMessage extends Component {
       message_body
     }
 
+    console.log("sendmessage", data)
     axios.post('/api/post/messagetodb', data)
       .then(res => console.log("SendMessage.js", res))
-      .catch(err => console.error(err))
       .then(setTimeout(() => history.replace('/'), 500))
+      .catch(err => console.error(err))
   }
 
   render() {
@@ -59,7 +60,7 @@ class SendMessage extends Component {
 
 function mapStateToProps(state) {
   return {
-    db_profile: state.user_reducer.db_profile,
+    db_profile: state.auth_reducer.db_profile,
   }
 }
 

@@ -224,4 +224,49 @@ router.get('/api/get/otheruserposts', (req, res, next) => {
   )
 })
 
+/*
+  MESSAGES ROUTES SECTION
+*/
+router.get('/api/get/usermessages', (res, req, next) => {
+  const username = String(req.query.username)
+
+  pool.query(`SELECT FROM messages WHERE message_recipient = $1`,
+    [username],
+    (q_err, q_res) => {
+      if (q_err) console.log(q_err)
+      res.json(q_res.rows)
+    }
+  )
+})
+
+router.post('/api/post/messagetodb', (res, req, next) => {
+  console.log("server routes", req.body)
+  const message_sender = String(req.body.message_sender)
+  const message_recipient = String(req.body.message_recipient)
+  const message_title = String(req.body.message_title)
+  const message_body = String(req.body.message_body)
+  const values = [message_sender, message_recipient, message_title, message_body]
+
+  pool.query(`INSERT INTO messages(message_sender, message_recipient, message_title, message_body, date_created)
+    VALUES ($1, $2, $3, $4, NOW())`,
+    values,
+    (q_err, q_res) => {
+      if (q_err) console.log(q_err)
+      res.json(q_res.rows)
+    }
+  )
+})
+
+router.delete('/api/delete/usermessage', (res, req, next) => {
+  const mid = req.body.mid
+
+  pool.query(`DELETE FROM messages WHERE mid = $1`,
+    [mid],
+    (q_err, q_res) => {
+      if (q_err) console.log(q_err)
+      res.json(q_res.rows)
+    }
+  )
+})
+
 module.exports = router

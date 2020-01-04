@@ -21,12 +21,22 @@ CREATE TABLE posts
   likes INT DEFAULT 0
 );
 
-  CREATE TABLE comments
-  (
-    cid SERIAL PRIMARY KEY,
-    comment VARCHAR(255),
-    author VARCHAR REFERENCES users(username),
-    user_id INT REFERENCES users(uid),
-    post_id INT REFERENCES posts(pid),
-    date_created TIMESTAMP
-  );
+CREATE TABLE comments
+(
+  cid SERIAL PRIMARY KEY,
+  comment VARCHAR(255),
+  author VARCHAR REFERENCES users(username),
+  user_id INT REFERENCES users(uid),
+  post_id INT REFERENCES posts(pid),
+  date_created TIMESTAMP
+);
+
+CREATE TABLE messages
+(
+  mid SERIAL PRIMARY KEY,
+  message_sender VARCHAR(255) REFERENCES users(username),
+  message_recipient VARCHAR(255) REFERENCES users(username),
+  message_title VARCHAR(255),
+  message_body VARCHAR,
+  date_created TIMESTAMP
+);

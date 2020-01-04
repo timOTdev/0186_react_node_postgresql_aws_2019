@@ -20,6 +20,8 @@ import EditPost from './blog/EditPost'
 import Posts from './blog/Posts'
 import ShowPost from './blog/ShowPost'
 
+import ShowUser from './profile/ShowUser'
+
 import * as ACTIONS from './store/actions/actions';
 
 import Auth from './utils/auth';
@@ -71,6 +73,8 @@ class Routes extends Component {
               <Route path='/redirect' component={UnauthRedirect} />
               <Route path='/renderlist' component={RenderList} />
               <Route path='/signup' render={() => <Signup auth={auth} />} />
+
+              <Route path='/user/:uid' component={ShowUser} />
 
               <Route path='/addpost' component={AddPost} />
               <Route path='/editpost/:pid' component={EditPost} />

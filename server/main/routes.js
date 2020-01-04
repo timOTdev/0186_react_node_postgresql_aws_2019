@@ -195,4 +195,33 @@ router.put('/api/put/likes', (req, res, next) => {
   )
 })
 
+/*
+  OTHER USER ROUTES SECTION
+*/
+router.get('/api/get/otheruserprofilefromdb', (req, res, next) => {
+  const username = String(req.query.username)
+
+  pool.query(
+    'SELECT * FROM users WHERE username=$1',
+    [username],
+    (q_err, q_res) => {
+      if (q_err) console.log(q_err)
+      res.json(q_res.rows)
+    }
+  )
+})
+
+router.get('/api/get/otheruserposts', (req, res, next) => {
+  const username = String(req.query.username)
+
+  pool.query(
+    'SELECT * FROM posts WHERE author=$1',
+    [username],
+    (q_err, q_res) => {
+      if (q_err) console.log(q_err)
+      res.json(q_res.rows)
+    }
+  )
+})
+
 module.exports = router

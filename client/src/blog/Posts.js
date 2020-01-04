@@ -114,6 +114,11 @@ class Posts extends Component {
             <div className="FlexColumn">
               <div className="FlexRow">
                 {moment(post.post.date_created).format('MMMM Do, YYYY | h:mm a')}
+                <br />
+                <Link style={{ paddingLeft: '5px', textDecoration: 'none' }}
+                  to={{ pathname: '/user/' + post.post.author, state: { post } }}>
+                  By: {post.post.author}
+                </Link>
               </div>
               <div className="FlexRow">
                 <i className="material-icons">thumb_up</i>

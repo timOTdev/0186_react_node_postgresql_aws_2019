@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Router, Route, Switch, Redirect } from 'react-router';
+
+import * as ACTIONS from './store/actions/actions';
+import Auth from './utils/auth';
+import AuthCheck from './utils/authcheck';
+import history from './utils/history';
 
 import Container1 from './containers/container1'
 import Header from './containers/header';
@@ -21,14 +27,10 @@ import Posts from './blog/Posts'
 import ShowPost from './blog/ShowPost'
 
 import ShowUser from './profile/ShowUser'
+import SendMessage from './profile/SendMessage'
+import ReplyMessage from './profile/ReplyMessage'
+import ShowMessages from './profile/ShowMessages'
 
-import * as ACTIONS from './store/actions/actions';
-
-import Auth from './utils/auth';
-import AuthCheck from './utils/authcheck';
-import history from './utils/history';
-
-import { Router, Route, Switch, Redirect } from 'react-router';
 
 export const auth = new Auth()
 
@@ -75,6 +77,9 @@ class Routes extends Component {
               <Route path='/signup' render={() => <Signup auth={auth} />} />
 
               <Route path='/user/:uid' component={ShowUser} />
+              <PrivateRoute path="/sendmessage" auth={auth} component={SendMessage} />
+              <PrivateRoute path="/replymessage" auth={auth} component={ReplyMessage} />
+              <PrivateRoute path="/showmessages/:id" cauth={auth} omponent={ShowMessages} />
 
               <Route path='/addpost' component={AddPost} />
               <Route path='/editpost/:pid' component={EditPost} />

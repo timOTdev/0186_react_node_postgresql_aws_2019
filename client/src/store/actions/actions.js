@@ -116,3 +116,29 @@ export const remove_search_posts = () => {
     type: ACTION_TYPES.SEARCH_POSTS_FAILURE,
   }
 }
+
+export const set_other_user_db_profile = (profile) => {
+  return {
+    type: ACTION_TYPES.SET_OTHER_USER_DB_PROFILE,
+    payload: profile
+  }
+}
+
+export const remove_other_user_db_profile = () => {
+  return {
+    type: ACTION_TYPES.REMOVE_OTHER_USER_DB_PROFILE
+  }
+}
+
+export const set_other_user_db_posts = (posts) => {
+  return {
+    type: ACTION_TYPES.SET_OTHER_USER_DB_POSTS,
+    payload: posts
+  }
+}
+
+export const remove_other_user_db_posts = () => {
+  return {
+    type: ACTION_TYPES.REMOVE_OTHER_USER_DB_POSTS,
+  }
+}

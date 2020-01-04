@@ -186,7 +186,7 @@ class ShowPost extends Component {
           {/* <h4>{this.props.location.state.post.post.title}</h4>
           <p>{this.props.location.state.post.post.body}</p>
           <p>{this.props.location.state.post.post.author}</p> */}
-          <a style={{ cursor: 'pointer' }} href="#" onClick={this.props.is_authenticated ? () => this.handleLikes() : () => history.replace('/signup')}>
+          <a style={{ cursor: 'pointer' }} onClick={this.props.is_authenticated ? () => this.handleLikes() : () => history.replace('/signup')}>
             <i className='material-icons'>thumb_up</i>
             <small className="notification-num-showpost">{this.state.likes}</small>
           </a>

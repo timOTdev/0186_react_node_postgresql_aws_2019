@@ -75,8 +75,8 @@ class ShowUser extends Component {
           <div>
             {this.props.db_other_user_posts
               ? this.props.db_other_user_posts.map(post =>
-                <div>
-                  <this.RenderPosts key={post.pid} post={post} />
+                <div key={post.pid}>
+                  <this.RenderPosts post={post} />
                   <br />
                 </div>
               ) : ''}

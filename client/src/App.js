@@ -3,9 +3,9 @@ import axios from 'axios'
 import Routes from './routes';
 import './App.css'
 
-const axiosInstance = axios.create({
-  baseURL: "https://jsonplaceholder.typicode.com"
-})
+// const axiosInstance = axios.create({
+//   baseURL: "https://jsonplaceholder.typicode.com"
+// })
 
 class App extends Component {
   state = {
@@ -19,12 +19,12 @@ class App extends Component {
       .catch(error => console.error(error))
 
     // API call via Axios
-    axiosInstance.get('/posts')
-      .then(res => console.log("From axios:", res.data))
-      .catch(error => console.error(error))
+    // axiosInstance.get('/posts')
+    //   .then(res => console.log("From axios:", res.data))
+    //   .catch(error => console.error(error))
 
     // API call via fetch
-    this.asyncFetch()
+    // this.asyncFetch()
   }
 
   asyncFetch = async () => {

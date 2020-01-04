@@ -142,3 +142,16 @@ export const remove_other_user_db_posts = () => {
     type: ACTION_TYPES.REMOVE_OTHER_USER_DB_POSTS,
   }
 }
+
+export const set_user_messages = (messages) => {
+  return {
+    type: ACTION_TYPES.SET_USER_MESSAGES,
+    payload: messages
+  }
+}
+
+export const remove_user_messages = () => {
+  return {
+    type: ACTION_TYPES.REMOVE_USER_MESSAGES,
+  }
+}

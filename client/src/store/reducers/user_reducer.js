@@ -4,6 +4,7 @@ const initialState = {
   user_text: '',
   OtherUserDBProfile: null,
   db_other_user_posts: [],
+  user_messages: [],
 }
 
 const UserReducer = (state = initialState, action) => {
@@ -32,6 +33,16 @@ const UserReducer = (state = initialState, action) => {
       return {
         ...state,
         db_other_user_posts: []
+      }
+    case ACTION_TYPES.SET_USER_MESSAGES:
+      return {
+        ...state,
+        user_messages: action.payload
+      }
+    case ACTION_TYPES.REMOVE_USER_MESSAGES:
+      return {
+        ...state,
+        user_messages: []
       }
     default:
       return state

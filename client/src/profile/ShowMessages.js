@@ -30,13 +30,20 @@ class ShowMessages extends Component {
         <Link to={{ pathname: '/replytomessage', state: { props } }}>
           <button>Reply</button>
         </Link>
-        <button onClick={() => this.DeleteMessage}>Delete</button>
+        <button onClick={() => this.DeleteMessage(props.message.mid)}>Delete</button>
         <br />
         <br />
         <button onClick={() => history.goBack()}>Cancel</button>
       </TableCell>
     </TableRow>
   )
+
+  DeleteMessage = (mid) => {
+    axios.delete('/api/delete/usermessage', { data: { mid } })
+      .then(res => console.log(`Message ${mid} delete successfully.`))
+      .then(() => setTimeout(() => history.replace('/'), 500))
+      .catch(err => console.error(err))
+  }
 
   render() {
     return (

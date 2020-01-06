@@ -4,7 +4,8 @@ import history from './history';
 export default class Auth {
   auth0 = new auth0.WebAuth({
     domain: 'timh1203.auth0.com',
-    clientID: 'QGce2RCyo8epuX1i7sSips9EipGt79lD',
+    clientID: 'QGce2RCyo8epuX1i7sSips9EipGt79lD', // reactapp2019
+    // clientID: 'bUOZu5FuuNTzk1eBxJGMs6xQC750T1dU', // reactadminapp2019
     redirectUri: 'http://localhost:3000/callback',
     responseType: 'token id_token',
     scope: 'openid profile email'

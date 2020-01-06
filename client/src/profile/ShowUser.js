@@ -16,7 +16,7 @@ class ShowUser extends Component {
     const username = this.props.location.state.post.post.author
 
     axios.get('/api/get/otheruserprofilefromdb', { params: { username } })
-      .then(res => this.props.set_other_user_db_profile(res.data[0]))
+      .then(res => this.props.set_other_user_db_profile(res.data))
       .catch(err => console.error(err))
     axios.get('/api/get/otheruserposts', { params: { username } })
       .then(res => this.props.set_other_user_db_posts(Array.from(res.data)))

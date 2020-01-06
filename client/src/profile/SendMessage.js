@@ -22,7 +22,6 @@ class SendMessage extends Component {
       message_body
     }
 
-    console.log("sendmessage", data)
     axios.post('/api/post/messagetodb', data)
       .then(res => console.log("SendMessage.js", res))
       .then(setTimeout(() => history.replace('/'), 500))

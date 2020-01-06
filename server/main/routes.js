@@ -227,7 +227,7 @@ router.get('/api/get/otheruserposts', (req, res, next) => {
 /*
   MESSAGES ROUTES SECTION
 */
-router.get('/api/get/usermessages', (res, req, next) => {
+router.get('/api/get/usermessages', (req, res, next) => {
   const username = String(req.query.username)
 
   pool.query(`SELECT FROM messages WHERE message_recipient = $1`,
@@ -239,8 +239,7 @@ router.get('/api/get/usermessages', (res, req, next) => {
   )
 })
 
-router.post('/api/post/messagetodb', (res, req, next) => {
-  console.log("server routes", req.body)
+router.post('/api/post/messagetodb', (req, res, next) => {
   const message_sender = String(req.body.message_sender)
   const message_recipient = String(req.body.message_recipient)
   const message_title = String(req.body.message_title)
@@ -257,7 +256,7 @@ router.post('/api/post/messagetodb', (res, req, next) => {
   )
 })
 
-router.delete('/api/delete/usermessage', (res, req, next) => {
+router.delete('/api/delete/usermessage', (req, res, next) => {
   const mid = req.body.mid
 
   pool.query(`DELETE FROM messages WHERE mid = $1`,

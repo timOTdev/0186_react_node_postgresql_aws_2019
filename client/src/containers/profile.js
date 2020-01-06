@@ -99,7 +99,7 @@ class Profile extends Component {
           <this.RenderProfile profile={this.props.profile} />
         </div>
         <div>
-          <Link to={{ pathname: "/showmessages/" + this.state.user_id }}>
+          <Link to={{ pathname: "/showmessages/" + this.props.db_profile[0].uid }}>
             <Button variant="contained" color="primary" type="submit">
               Show Messages
             </Button>

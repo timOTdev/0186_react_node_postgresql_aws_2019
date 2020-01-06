@@ -228,9 +228,10 @@ router.get('/api/get/otheruserposts', (req, res, next) => {
   MESSAGES ROUTES SECTION
 */
 router.get('/api/get/usermessages', (req, res, next) => {
+  console.log("server routes", req.query, req.params)
   const username = String(req.query.username)
 
-  pool.query(`SELECT FROM messages WHERE message_recipient = $1`,
+  pool.query(`SELECT * FROM messages WHERE message_recipient = $1`,
     [username],
     (q_err, q_res) => {
       if (q_err) console.log(q_err)

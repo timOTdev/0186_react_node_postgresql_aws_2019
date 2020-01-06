@@ -11,8 +11,8 @@ class ReplyMessage extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     const message_sender = this.props.db_profile[0].username
-    const message_recipient = this.props.location.state.props.profile.username
-    const message_title = e.target.value
+    const message_recipient = this.props.location.state.props.message.message_sender
+    const message_title = e.target.title.value
     const message_body = e.target.body.value
 
     const data = {
@@ -21,11 +21,12 @@ class ReplyMessage extends Component {
       message_title,
       message_body
     }
+    console.log("replymessage data", data)
 
     axios.post('/api/post/messagetodb', data)
-      .then(res => console.log("ReplyMessage.js", res))
-      .catch(err => console.error(err))
+      .then(res => console.log("Message was replied successfully."))
       .then(setTimeout(() => history.replace('/'), 500))
+      .catch(err => console.error(err))
   }
 
   render() {

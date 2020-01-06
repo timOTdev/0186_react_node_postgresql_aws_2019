@@ -27,7 +27,7 @@ class ShowMessages extends Component {
         <p>Title: {props.message.message_title}</p>
         <p>Message: {props.message.message_body}</p>
         <small>{props.message.date_created}</small>
-        <Link to={{ pathname: '/replytomessage', state: { props } }}>
+        <Link to={{ pathname: '/replymessage', state: { props } }}>
           <button>Reply</button>
         </Link>
         <button onClick={() => this.DeleteMessage(props.message.mid)}>Delete</button>

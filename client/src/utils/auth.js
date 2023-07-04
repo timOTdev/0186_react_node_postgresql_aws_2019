@@ -6,7 +6,8 @@ export default class Auth {
     domain: 'timh1203.auth0.com',
     clientID: 'QGce2RCyo8epuX1i7sSips9EipGt79lD', // reactapp2019
     // clientID: 'bUOZu5FuuNTzk1eBxJGMs6xQC750T1dU', // reactadminapp2019
-    redirectUri: 'http://localhost:3000/callback',
+    // redirectUri: 'http://localhost:3000/callback',
+    redirectUri: 'http://13.58.58.171/callback',
     responseType: 'token id_token',
     scope: 'openid profile email'
   })
